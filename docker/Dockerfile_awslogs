@@ -1,0 +1,13 @@
+ARG SOURCE=${SOURCE}
+FROM ${SOURCE}
+MAINTAINER Giles Gamon "giles@lsiarchi.consulting"
+
+RUN yum -y install python-pip rsyslog
+RUN pip install awscli-cwlogs
+
+ADD files/awslogs/aws.conf /etc
+ADD files/awslogs/awslogs-agent.conf /etc
+ADD files/awslogs/rsyslog.conf /etc
+ADD files/awslogs/remove-old-logs.sh /opt/bin/
+ADD files/awslogs/rsyslog.ini /etc/supervisord.d/
+ADD files/awslogs/awslog.ini /etc/supervisord.d/

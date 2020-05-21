@@ -1,0 +1,13 @@
+FROM amazonlinux:2
+MAINTAINER Giles Gamon "giles@lsiarchi.consulting"
+
+RUN yum update -y
+RUN yum install -y zip unzip git curl tar wget make gzip zip zlib-devel gcc openssl-devel bzip2-devel libffi-devel file hostname
+
+ADD files/binaries/ibm-java-x86_64-sdk-8.0-6.6.bin /tmp
+RUN chmod +x /tmp/ibm-java-x86_64-sdk-8.0-6.6.bin
+ADD files/ibm_java_install_response_file /tmp
+RUN /tmp/ibm-java-x86_64-sdk-8.0-6.6.bin -i silent -f /tmp/ibm_java_install_response_file
+ENV JAVA_HOME=/opt/ibm/java-x86_64-80
+ENV PATH=$JAVA_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN rm -f /tmp/ibm-java-x86_64-sdk-8.0-6.6.bin /tmp/ibm_java_install_response_file

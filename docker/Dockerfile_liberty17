@@ -1,0 +1,27 @@
+FROM ibmjdk:latest
+MAINTAINER Giles Gamon "giles@lsiarchi.consulting"
+
+# Bigger files 1st - just makes any iteration smaller in layer sizes
+ADD files/binaries/wlp-webProfile7-17.0.0.2.zip /tmp/wlp-webProfile7-17.0.0.2.zip
+RUN mkdir /opt/websphere ; cd /opt/websphere ; unzip /tmp/wlp-webProfile7-17.0.0.2.zip ; rm /tmp/wlp-webProfile7-17.0.0.2.zip
+
+ADD files/wlp.sh /etc/profile.d/wlp.sh
+ENV WLP_HOME=/opt/websphere/wlp
+ENV WLP_BIN=$WLP_HOME/bin 
+ENV PATH=$WLP_BIN:$PATH
+
+# Run setup scripts
+ADD files/create_liberty_server.sh /tmp/01_create_liberty_server.sh
+ADD files/configureServer.sh /tmp/02_configureServer.sh
+RUN chmod +x /tmp/0[1234]*sh
+RUN /tmp/01_create_liberty_server.sh
+RUN /tmp/02_configureServer.sh
+RUN rm /tmp/01_create_liberty_server.sh /tmp/02_configureServer.sh
+
+# Add ini for supervisord
+ADD files/wlp.ini /etc/supervisord.d/
+
+EXPOSE 9080
+EXPOSE 9443
+
+RUN yum update -y

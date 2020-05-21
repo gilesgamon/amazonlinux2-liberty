@@ -1,0 +1,42 @@
+{
+	"agent": {
+	"metrics_collection_interval": 60,
+	"region": "eu-west-1",
+	"logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+	"debug": false,
+	},
+	"logs": {
+		"logs_collected": {
+		  "files": {
+		    "collect_list": [
+		      {
+		        "file_path": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+		        "log_group_name": "amazon-cloudwatch-agent.log",
+		        "log_stream_name": "amazon-cloudwatch-agent.log",
+		        "timezone": "UTC"
+		      },
+		      {
+                "file_path": "/opt/websphere/wlp/usr/servers/defaultServer/logs/messages.log",
+                "log_group_name": "/aws/ecs/liberty/",
+                "log_stream_name": "WAS_messages.log",
+                "timezone": "UTC"
+              },
+		      {
+                "file_path": "/opt/websphere/wlp/usr/servers/defaultServer/logs/console.log",
+                "log_group_name": "/aws/ecs/liberty/",
+                "log_stream_name": "WAS_console.log",
+                "timezone": "UTC"
+              },
+              {
+                "file_path": "/var/log/supervisor/supervisord.log",
+                "log_group_name": "/aws/ecs/liberty/",
+                "log_stream_name": "supervisord.log",
+                "timezone": "UTC"
+              }
+		    ]
+		}
+	},
+	"log_stream_name": "liberty-ecs-task",
+	"force_flush_interval" : 15
+	}
+}

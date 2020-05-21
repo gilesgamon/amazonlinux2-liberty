@@ -1,0 +1,7 @@
+FROM liberty:17
+MAINTAINER Giles Gamon "giles@lsiarchi.consulting"
+
+ADD files/binaries/ferret-1.0.war $WLP_HOME/usr/servers/defaultServer/dropins/ferret-1.0.war
+
+RUN yum update -y
+RUN yum install -y procps-ng which 

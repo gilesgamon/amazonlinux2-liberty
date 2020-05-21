@@ -1,0 +1,13 @@
+ARG SOURCE=${SOURCE}
+FROM ${SOURCE}
+MAINTAINER Giles Gamon "giles@lsiarchi.consulting"
+
+RUN amazon-linux-extras install -y epel
+RUN yum install -y supervisor
+
+# Supervisord Setup
+RUN mkdir -p /etc/supervisor/conf.d/
+ADD files/supervisord/run.sh /run.sh
+RUN chmod 0755 /run.sh 
+
+ENTRYPOINT ["/run.sh"]
