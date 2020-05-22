@@ -1,7 +1,7 @@
 # amazonlinux2-liberty
 IBM Liberty build on AmazonLinux2
 
-Builds a (set of) container which ultimately provide an example ferret app - thsi part would obviously be wswitched out for something more useful.
+Builds a (set of) container which ultimately provide an example ferret app - this part would obviously be switched out for something more useful.
 
 The core ideas are taken from IBM's AWS quick start: https://github.com/aws-quickstart/quickstart-ibm-websphere-liberty
 
@@ -14,6 +14,11 @@ Also adds in AWS CloudWatch agent to push logs from inside the container to AWS 
 ##To Do
 
 Add variant of more up-to-date binaries.
+
 Wrap and test for Fargate.
-Perhaps switch from SDK to JDK - minor me thinks
+
+Perhaps switch from JDK to JRE - minor me thinks
+
 Tune the logs - I prep'd amazon-cloudwatch-agent.json but have not yet put it all together in the supervisord orchestrated method yet 
+
+Add from TF for Fargate (maybe)
